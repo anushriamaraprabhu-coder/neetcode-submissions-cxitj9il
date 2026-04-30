@@ -1,0 +1,71 @@
+class PrefixTree {
+
+    private class TrieNode{
+
+        TrieNode[]children;
+        boolean isEnd;
+
+        //constructor 
+        TrieNode(){
+            children=new TrieNode[26];
+            isEnd=false;
+        }
+    }
+
+    private TrieNode root;
+
+    public PrefixTree() {
+
+        root=new TrieNode();
+         
+    }
+
+    public void insert(String word) {
+
+        TrieNode node=root;
+        for(char ch:word.toCharArray()){
+            int index=ch-'a';
+        
+
+        if(node.children[index]==null){
+            node.children[index]=new TrieNode();
+        }
+
+        node=node.children[index];
+        }
+
+        node.isEnd=true;
+
+    }
+
+    public boolean search(String word) {
+
+        TrieNode node= findNode(word);
+
+        //try to reach the node corresponding to the word 
+        return node!=null && node.isEnd;
+
+    }
+
+    public boolean startsWith(String prefix) {
+
+        //path exists then only prefix exists 
+        return findNode(prefix)!=null;
+
+    }
+
+    private TrieNode findNode(String str){
+
+        TrieNode node=root;
+        for(char ch:str.toCharArray()){
+            int index=ch-'a';
+            if(node.children[index]==null){
+                return null;
+            }
+
+            node=node.children[index];
+        }
+
+        return node;
+    }
+}
