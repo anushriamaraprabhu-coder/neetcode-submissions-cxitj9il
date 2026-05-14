@@ -1,0 +1,34 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+
+        //time complexity: O(mxn) m:no.of coins and n:total amount you need to make
+        //space complexity= o(n) as that is the array space we need to memoize
+
+        int[]dp=new int[amount+1];
+
+        //fill the dp arrays with amount+1 since we cannot have a greater value
+
+        Arrays.fill(dp,amount+1);
+
+        //bas ecase
+        dp[0]=0;
+
+        for(int currentamount=1;currentamount<=amount;currentamount++){
+
+            for(int coin:coins){
+
+                if(coin<=currentamount){
+
+                    dp[currentamount]=Math.min(dp[currentamount],dp[currentamount-coin]+1);
+                }
+            }
+
+
+        }
+
+        return(dp[amount]>amount?-1:dp[amount]);
+
+
+        
+    }
+}
