@@ -1,0 +1,29 @@
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+
+        //brute force TC: O(2^n) as at each instance we can pick an element/leave the element.
+        //SC: O(n)as the recursion stack depth
+
+        //DP TC: O(n^2) as we are using the memoization array and iteration through each element
+        //SC: O(n) as we are taking the extra dp memoization array to store our elements
+
+        int[]dp=new int[nums.length];
+        int maxlength=1;
+
+        Arrays.fill(dp,1);
+
+        dp[0]=1;
+
+        for(int i=1;i<nums.length;i++){
+            for(int j=0;j<i;j++){
+                if(nums[i]>nums[j]){
+                    dp[i]=Math.max(dp[i],dp[j]+1);
+                    maxlength=Math.max(dp[i],maxlength);
+                }
+            }
+        }
+
+        return maxlength;
+        
+    }
+}
